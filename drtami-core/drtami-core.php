@@ -11,6 +11,8 @@ defined('ABSPATH') || exit;
 function drtami_core_fields(): array {
     return [
         'home' => [
+            'Grijă pentru cei mici.' => 'Homepage – Main heading',
+            'Liniște pentru părinți.' => 'Homepage – Second heading',
             "Oncologie și Hematologie Pediatrică — consultații cu atenție, empatie și o abordare individualizată, pentru fiecare copil și familie." => "Oncologie și Hematologie Pediatrică — consultații cu atenție, empatie și o abordare indivi…",
             "Evaluare, diagnostic, monitorizare și îndrumare medicală pentru copii și adolescenți." => "Evaluare, diagnostic, monitorizare și îndrumare medicală pentru copii și adolescenți.",
             "Evaluarea anemiilor, modificărilor hemoleucogramei, tulburărilor de coagulare și a altor afecțiuni hematologice." => "Evaluarea anemiilor, modificărilor hemoleucogramei, tulburărilor de coagulare și a altor a…",
@@ -22,6 +24,7 @@ function drtami_core_fields(): array {
             "Pentru întrebări sau programări, mă poți contacta telefonic, prin WhatsApp sau prin formular." => "Pentru întrebări sau programări, mă poți contacta telefonic, prin WhatsApp sau prin formul…",
         ],
         'about' => [
+            'O relație bazată pe încredere, respect și siguranță pentru fiecare copil și familie.' => 'About me – Introduction',
             "O relație bazată pe încredere, respect și siguranță pentru fiecare copil și familie." => "O relație bazată pe încredere, respect și siguranță pentru fiecare copil și familie.",
             " și sunt Medic specialist Oncologie și Hematologie Pediatrică." => " și sunt Medic specialist Oncologie și Hematologie Pediatrică.",
             "Am absolvit Universitatea de Medicină și Farmacie „Carol Davila” din București în anul 2020, iar în noiembrie 2025 am finalizat pregătirea prin rezidențiat în specialitatea Oncologie și Hematologie Pediatrică." => "Am absolvit Universitatea de Medicină și Farmacie „Carol Davila” din București în anul 202…",
@@ -52,6 +55,7 @@ function drtami_core_fields(): array {
             "Sunt aici pentru a te ajuta să găsești răspunsuri și îndrumare." => "Sunt aici pentru a te ajuta să găsești răspunsuri și îndrumare.",
         ],
         'contact' => [
+            'Pentru programări și informații, alege metoda de contact potrivită pentru tine.' => 'Contact – Introduction',
             "Pentru programări și informații, alege metoda de contact potrivită pentru tine." => "Pentru programări și informații, alege metoda de contact potrivită pentru tine.",
             "copilul (prezență obligatorie) și documentele medicale ale acestuia." => "copilul (prezență obligatorie) și documentele medicale ale acestuia.",
             "Completează formularul, iar mesajul va fi transmis pe e-mail." => "Completează formularul, iar mesajul va fi transmis pe e-mail.",
