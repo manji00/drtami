@@ -195,7 +195,7 @@ function drtami_core_admin(): void {
             <div class="dt-faq-row" style="background:#fff;padding:12px;margin:10px 0;border:1px solid #ddd">
               <label>Question <input class="large-text" name="drtami_core[faq][<?php echo esc_attr($lang); ?>][<?php echo esc_attr($index); ?>][question]" value="<?php echo esc_attr($entry['question'] ?? ''); ?>"></label>
               <label>Answer <textarea class="large-text" rows="3" name="drtami_core[faq][<?php echo esc_attr($lang); ?>][<?php echo esc_attr($index); ?>][answer]"><?php echo esc_textarea($entry['answer'] ?? ''); ?></textarea></label>
-              <button type="button" class="button dt-faq-remove">Remove question</button>
+              <button type="button" class="button dt-faq-up">Move up</button> <button type="button" class="button dt-faq-down">Move down</button> <button type="button" class="button dt-faq-remove">Remove question</button>
             </div>
           <?php endforeach; ?></div>
           <button type="button" class="button dt-faq-add" data-lang="<?php echo esc_attr($lang); ?>">+ Add question</button>
