@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+require_once get_theme_file_path('/inc/i18n.php');
 
 add_action('after_setup_theme', static function (): void {
     add_theme_support('title-tag');
@@ -95,3 +96,18 @@ add_action('init', static function (): void {
     }
     update_option('drtami_hello_cleanup_v1', '1', false);
 }, 25);
+
+/**
+ * Use the same file-based templates for Polylang translations of the original
+ * Romanian pages. Content on these templates must be translated separately.
+ */
+add_filter('template_include', static function (string $template): string {
+    if (!is_page() || !function_exists('pll_get_post')) return $template;
+    $id = get_queried_object_id();
+    $romanian = pll_get_post($id, 'ro');
+    if (!$romanian) return $template;
+    $slug = get_post_field('post_name', $romanian);
+    if (!in_array($slug, ['despre-mine', 'contact', 'intrebari-frecvente', 'articole'], true)) return $template;
+    $candidate = get_theme_file_path('/page-' . $slug . '.php');
+    return file_exists($candidate) ? $candidate : $template;
+}, 50);
