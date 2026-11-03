@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 require_once get_theme_file_path('/inc/i18n.php');
+require_once get_theme_file_path('/inc/language-settings.php');
 require_once get_theme_file_path('/inc/article-translations.php');
 require_once get_theme_file_path('/inc/polylang-pages.php');
 
