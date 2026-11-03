@@ -57,6 +57,8 @@ function drtami_t(string $source): string {
         "Informațiile de pe site nu înlocuiesc consultația medicală." => ["Information on this website does not replace a medical consultation.", "Die Informationen auf dieser Website ersetzen keine ärztliche Untersuchung."],
         "Sari la conținut" => ["Skip to content", "Zum Inhalt springen"],
         "Deschide meniul" => ["Open menu", "Menü öffnen"],
+        "Informații pentru părinți." => ["Information for parents.", "Informationen für Eltern."],
+        "Articole medicale explicate clar, pentru decizii informate și mai multă liniște." => ["Clear medical articles for informed decisions and peace of mind.", "Verständliche medizinische Artikel für fundierte Entscheidungen und mehr Sicherheit."],
     ];
     $lang = drtami_language();
     $index = $lang === 'en' ? 0 : ($lang === 'de' ? 1 : null);
