@@ -17,6 +17,7 @@
  <?php elseif ($status === 'error'): ?><div class="form-notice" role="alert"><?php echo esc_html(drtami_t("Mesajul nu a putut fi trimis. Te rugăm să folosești telefonul sau e-mailul.")); ?></div><?php endif; ?>
  <form action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">
   <input type="hidden" name="action" value="drtami_contact">
+  <input type="hidden" name="drtami_lang" value="<?php echo esc_attr(drtami_language()); ?>">
   <?php wp_nonce_field('drtami_contact', 'drtami_nonce'); ?>
   <div class="honeypot" aria-hidden="true"><label>Website <input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
   <label for="contact-name"><?php echo esc_html(drtami_t("Numele tău ")); ?><span>*</span></label><input id="contact-name" name="name" required maxlength="120" autocomplete="name" placeholder="<?php echo esc_attr(drtami_t("Nume și prenume")); ?>">
