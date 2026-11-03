@@ -1,34 +1,41 @@
-# Dr. Tami – einfache Websiteverwaltung
+# Dr. Tami – Website Manager
 
-Dieses Verzeichnis enthält ein eigenständiges WordPress-Plugin. **Es wird nicht automatisch durch das Theme aktiviert.**
+The WordPress admin screen is in **English**, independently of the public site's language.
 
-## Installation in der lokalen Docker-Umgebung
+## Updating an existing installation
 
-In PowerShell im Theme-Verzeichnis ausführen:
+After merging and pulling the theme repository, copy the plugin folder again:
 
 ```powershell
-Copy-Item -Recurse -Force .\drtami-core ..\..\plugins\drtami-core
+cd C:\DevZone\drtami\www\wp-content\themes\drtami
+Copy-Item -Recurse -Force .\drtami-core\* ..\..\plugins\drtami-core\
 ```
 
-Danach im WordPress-Backend **Plugins → Installierte Plugins → Dr. Tami – Websiteverwaltung → Aktivieren** wählen. Im linken Menü erscheint **Meine Website**.
+If not yet installed, create the plugin directory first:
 
-Beim späteren Update des Plugins dieselben Dateien erneut in den Plugin-Ordner kopieren (bestehende Dateien ersetzen). Für produktive Installationen Plugin als ZIP paketieren und über WordPress installieren.
+```powershell
+New-Item -ItemType Directory -Force ..\..\plugins\drtami-core
+Copy-Item -Recurse -Force .\drtami-core\* ..\..\plugins\drtami-core\
+```
 
-## Was bearbeitbar ist
+Activate **Dr. Tami – Website Manager** in Plugins if it is not already active. Go to **My Website**.
 
-- Kontaktdaten, Ordinationsadresse, Preis, Dauer; E-Mail-Empfänger des Kontaktformulars
-- Fünf Bilder über die WordPress-Mediathek
-- Ausgewählte Startseiten-, Profil- und Kontakttexte jeweils in RO, EN, DE
-- Artikel weiterhin über **Beiträge** im WordPress-Backend und Polylang
+## Owner account
 
-Leere Felder behalten die bisherigen Texte und Bilder. Vorhandene Beiträge werden nicht überschrieben. Änderungen sind nach dem Speichern sofort öffentlich.
+An administrator can create a WordPress user under **Users → Add New**, assign role **Dr. Tami – Site Owner**, and provide that user with their own login. Do not share an administrator account.
 
-## Grenzen dieser ersten Version
+The restricted role can edit the site settings on **My Website**, upload images and manage posts. It cannot install plugins, switch themes or change WordPress settings. The site owner is redirected to **My Website** after login. Administrators retain full access.
 
-Nicht sämtliche Texte und medizinischen Leistungslisten sind editierbar. FAQ und vollständige „Über mich“-Inhalte sollen in einem weiteren Schritt als strukturierte Felder folgen. Für einen sicheren Veröffentlichungsprozess können später Entwürfe und Vorschau ergänzt werden.
+## Editable areas
 
-Die Verwaltungsseite ist für Benutzer mit `edit_pages` sichtbar; die WordPress-Benutzerrechte sollten vor Übergabe bewusst konfiguriert werden. WordPress-Administratoren behalten weiterhin Zugriff auf Themes, Plugins und technische Einstellungen.
+- Contact information, clinic address, consultation fee and duration
+- Image slots on the homepage, About page and article listing
+- Page copy (Romanian, English, German), including medical service descriptions
+- FAQs: up to 30 question/answer pairs per language
+- Articles through the normal WordPress Posts editor
 
-## Wichtiger Test
+Blank text overrides fall back to the built-in translated copy. FAQ entries are shown only when both question and answer are supplied. Saving publishes changes immediately; there is not yet a preview/draft workflow.
 
-Vor produktiver Nutzung das Plugin lokal aktivieren und testen: Texte in RO/EN/DE, Bildauswahl, Telefonnummer/WhatsApp-Link, E-Mail-Empfänger, Formularversand, Preis und Zurücksetzen auf Standardwerte.
+## Before going live
+
+Test saving content in each language, FAQ add/remove, media selection, contact form delivery and user permissions locally. Review medical content and translations with the doctor. **This change has not been tested in a running WordPress instance.**
