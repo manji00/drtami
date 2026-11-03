@@ -30,6 +30,7 @@ function drtami_render_language_settings(): void {
       <p>Bestimme, welche Sprachen öffentlich erreichbar sind. Rumänisch bleibt immer aktiv. Übersetzungen und Polylang-Einstellungen werden nicht gelöscht.</p>
       <form method="post" action="options.php">
         <?php settings_fields('drtami_language_settings'); ?>
+        <input type="hidden" name="drtami_public_languages[]" value="ro">
         <table class="form-table" role="presentation">
           <tr><th>Rumänisch (RO)</th><td><input type="checkbox" checked disabled> Immer aktiv</td></tr>
           <?php foreach (['en' => 'Englisch (EN)', 'de' => 'Deutsch (DE)'] as $code => $label): ?>
