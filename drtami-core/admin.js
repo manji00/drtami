@@ -24,8 +24,9 @@ jQuery(function ($) {
     $('.dt-faq-add').on('click', function () {
         const lang = $(this).data('lang');
         const list = $('.dt-faq-list[data-lang="' + lang + '"]');
-        const index = list.find('.dt-faq-row').length;
-        if (index >= 30) return;
+        const indices = list.find('input[name]').map(function () { const m = this.name.match(/\\[(\\d+)\\]\\[question\\]$/); return m ? Number(m[1]) : -1; }).get();
+        const index = Math.max(-1, ...indices) + 1;
+        if (list.find('.dt-faq-row').length >= 30) return;
         const prefix = 'drtami_core[faq][' + lang + '][' + index + ']';
         const row = $('<div class="dt-faq-row" style="background:#fff;padding:12px;margin:10px 0;border:1px solid #ddd"></div>');
         $('<label>Question </label>').append($('<input class="large-text">').attr('name', prefix + '[question]')).appendTo(row);
