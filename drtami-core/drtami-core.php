@@ -48,7 +48,7 @@ function drtami_core_image(string $slot, string $fallback): string {
     return $url ?: $fallback;
 }
 add_action('admin_menu', static function (): void {
-    add_menu_page('Dr. Tami – Website', 'Meine Website', 'edit_pages', 'drtami-core', 'drtami_core_admin', 'dashicons-heart', 3);
+    add_menu_page('Dr. Tami – Website', 'Meine Website', 'manage_options', 'drtami-core', 'drtami_core_admin', 'dashicons-heart', 3);
 });
 add_action('admin_enqueue_scripts', static function (string $hook): void {
     if ($hook !== 'toplevel_page_drtami-core') return;
@@ -56,7 +56,7 @@ add_action('admin_enqueue_scripts', static function (string $hook): void {
     wp_enqueue_script('drtami-core-admin', plugin_dir_url(__FILE__) . 'admin.js', ['jquery'], '1.0.0', true);
 });
 add_action('admin_post_drtami_core_save', static function (): void {
-    if (!current_user_can('edit_pages')) wp_die('Keine Berechtigung.');
+    if (!current_user_can('manage_options')) wp_die('Keine Berechtigung.');
     check_admin_referer('drtami_core_save');
     $raw = isset($_POST['drtami_core']) && is_array($_POST['drtami_core']) ? wp_unslash($_POST['drtami_core']) : [];
     $current = drtami_core_option();
@@ -80,7 +80,7 @@ add_action('admin_post_drtami_core_save', static function (): void {
     exit;
 });
 function drtami_core_admin(): void {
-    if (!current_user_can('edit_pages')) return;
+    if (!current_user_can('manage_options')) return;
     $data = drtami_core_option();
     $groups = ['home' => 'Startseite', 'about' => 'Über mich', 'contact' => 'Kontakt'];
     $details = ['phone' => ['Telefon / WhatsApp', '+40 750 436 379'], 'email' => ['E-Mail', 'cheschestamara@gmail.com'], 'address' => ['Ordinationsadresse', 'Aleea Florin Ciungan nr. 17, București (zona Dristor)'], 'price' => ['Preis / RON', '400'], 'duration' => ['Dauer der Konsultation', '45–60']];
