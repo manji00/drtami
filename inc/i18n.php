@@ -134,6 +134,11 @@ function drtami_t(string $source): string {
         "Aici vor apărea în curând răspunsuri la întrebările frecvente." => ["Answers to frequently asked questions will appear here soon.", "Hier finden Sie bald Antworten auf häufig gestellte Fragen."],
         "Pregătim această secțiune." => ["This section is coming soon.", "Dieser Bereich entsteht gerade."],
         "Între timp, mă poți contacta direct pentru informații." => ["In the meantime, feel free to contact me for information.", "In der Zwischenzeit können Sie mich bei Fragen direkt kontaktieren."],
+        "HEMATOLOGIE PEDIATRICĂ" => ["PEDIATRIC HEMATOLOGY", "PÄDIATRISCHE HÄMATOLOGIE"],
+        "Articolele vor apărea în curând." => ["Articles will appear here soon.", "Hier erscheinen bald Artikel."],
+        "Înapoi la articole" => ["Back to articles", "Zurück zu den Artikeln"],
+        "ARTICOL · HEMATOLOGIE PEDIATRICĂ" => ["ARTICLE · PEDIATRIC HEMATOLOGY", "ARTIKEL · PÄDIATRISCHE HÄMATOLOGIE"],
+        "Ai întrebări sau dorești o consultație?" => ["Have questions or need an appointment?", "Haben Sie Fragen oder möchten Sie einen Termin vereinbaren?"],
     ];
     $lang = drtami_language();
     $index = $lang === 'en' ? 0 : ($lang === 'de' ? 1 : null);
