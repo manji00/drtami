@@ -97,17 +97,13 @@ add_action('init', static function (): void {
     update_option('drtami_hello_cleanup_v1', '1', false);
 }, 25);
 
-/**
- * Translated pages use the generic page.php, rendering their translated
- * WordPress content instead of accidentally displaying Romanian static copy.
- * The article listing is handled by the localized page-articole.php template.
- */
+/** Render the same themed templates for translated pages. */
 add_filter('template_include', static function (string $template): string {
-    if (!is_page() || !function_exists('pll_get_post') || drtami_language() === 'ro') return $template;
+    if (!is_page() || !function_exists('pll_get_post')) return $template;
     $romanian = pll_get_post(get_queried_object_id(), 'ro');
     if (!$romanian) return $template;
     $slug = get_post_field('post_name', $romanian);
-    if ($slug === 'articole') return get_theme_file_path('/page-articole.php');
-    if (in_array($slug, ['despre-mine', 'contact', 'intrebari-frecvente'], true)) return get_theme_file_path('/page.php');
-    return $template;
+    if (!in_array($slug, ['despre-mine', 'contact', 'intrebari-frecvente', 'articole'], true)) return $template;
+    $candidate = get_theme_file_path('/page-' . $slug . '.php');
+    return file_exists($candidate) ? $candidate : $template;
 }, 50);
