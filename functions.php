@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 require_once get_theme_file_path('/inc/i18n.php');
+require_once get_theme_file_path('/inc/article-translations.php');
+require_once get_theme_file_path('/inc/polylang-pages.php');
 
 add_action('after_setup_theme', static function (): void {
     add_theme_support('title-tag');
@@ -59,6 +61,14 @@ add_action('admin_post_drtami_contact', 'drtami_handle_contact');
 
 function drtami_handle_contact(): void {
     $back = drtami_page_url('contact');
+    $requested_lang = isset($_POST['drtami_lang']) ? sanitize_key(wp_unslash($_POST['drtami_lang'])) : 'ro';
+    if (in_array($requested_lang, ['ro', 'en', 'de'], true) && function_exists('pll_get_post')) {
+        $original_contact = get_page_by_path('contact', OBJECT, 'page');
+        if ($original_contact) {
+            $translated_contact = pll_get_post($original_contact->ID, $requested_lang);
+            if ($translated_contact) $back = get_permalink($translated_contact);
+        }
+    }
     if (!isset($_POST['drtami_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['drtami_nonce'])), 'drtami_contact')) {
         wp_safe_redirect(add_query_arg('status', 'invalid', $back)); exit;
     }
@@ -97,17 +107,13 @@ add_action('init', static function (): void {
     update_option('drtami_hello_cleanup_v1', '1', false);
 }, 25);
 
-/**
- * Translated pages use the generic page.php, rendering their translated
- * WordPress content instead of accidentally displaying Romanian static copy.
- * The article listing is handled by the localized page-articole.php template.
- */
+/** Render the same themed templates for translated pages. */
 add_filter('template_include', static function (string $template): string {
-    if (!is_page() || !function_exists('pll_get_post') || drtami_language() === 'ro') return $template;
+    if (!is_page() || !function_exists('pll_get_post')) return $template;
     $romanian = pll_get_post(get_queried_object_id(), 'ro');
     if (!$romanian) return $template;
     $slug = get_post_field('post_name', $romanian);
-    if ($slug === 'articole') return get_theme_file_path('/page-articole.php');
-    if (in_array($slug, ['despre-mine', 'contact', 'intrebari-frecvente'], true)) return get_theme_file_path('/page.php');
-    return $template;
+    if (!in_array($slug, ['despre-mine', 'contact', 'intrebari-frecvente', 'articole'], true)) return $template;
+    $candidate = get_theme_file_path('/page-' . $slug . '.php');
+    return file_exists($candidate) ? $candidate : $template;
 }, 50);
