@@ -157,3 +157,16 @@ function drtami_home_url(): string {
     if (function_exists('pll_home_url')) return pll_home_url(drtami_language());
     return home_url('/');
 }
+
+function drtami_featured_article_url(): string {
+    $article = get_page_by_path('cand-este-recomandat-un-consult-la-hematologul-pediatru', OBJECT, 'post');
+    if ($article) {
+        $id = (int) $article->ID;
+        if (function_exists('pll_get_post')) {
+            $translated = pll_get_post($id, drtami_language());
+            if ($translated) $id = (int) $translated;
+        }
+        return get_permalink($id);
+    }
+    return drtami_translate_page_url('articole');
+}
