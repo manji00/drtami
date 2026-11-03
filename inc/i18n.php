@@ -84,6 +84,11 @@ function drtami_t(string $source): string {
         "Sunt de acord ca datele introduse să fie folosite pentru a primi un răspuns la solicitarea mea. " => ["I agree that my submitted data may be used to respond to my inquiry. ", "Ich bin damit einverstanden, dass meine Angaben zur Beantwortung meiner Anfrage verwendet werden. "],
         "Nu trimite date medicale sensibile prin acest formular." => ["Do not send sensitive medical information through this form.", "Bitte übermitteln Sie über dieses Formular keine sensiblen medizinischen Daten."],
         "Trimite mesajul" => ["Send message", "Nachricht senden"],
+        "fără decontare CASMB" => ["not covered by CASMB", "keine Abrechnung über CASMB"],
+        "copilul (prezență obligatorie) și documentele medicale ale acestuia." => ["your child (attendance required) and their medical records.", "Ihr Kind (Anwesenheit erforderlich) und seine medizinischen Unterlagen."],
+        "București (zona Dristor)" => ["Bucharest (Dristor area)", "Bukarest (Stadtteil Dristor)"],
+        "Nume și prenume" => ["Full name", "Vor- und Nachname"],
+        "Cum te pot ajuta?" => ["How can I help?", "Wie kann ich Ihnen helfen?"],
     ];
     $lang = drtami_language();
     $index = $lang === 'en' ? 0 : ($lang === 'de' ? 1 : null);
