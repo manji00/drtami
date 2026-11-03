@@ -1,41 +1,31 @@
 # Dr. Tami – Website Manager
 
-The WordPress admin screen is in **English**, independently of the public site's language.
+The owner dashboard is in English. This plugin complements the custom WordPress theme; it does not replace the WordPress post editor.
 
-## Updating an existing installation
+## Install / update
 
-After merging and pulling the theme repository, copy the plugin folder again:
+Merge the pull request and pull the theme repository, then copy the plugin files to the **active** plugin directory:
 
 ```powershell
 cd C:\DevZone\drtami\www\wp-content\themes\drtami
-Copy-Item -Recurse -Force .\drtami-core\* ..\..\plugins\drtami-core\
-```
-
-If not yet installed, create the plugin directory first:
-
-```powershell
+git pull origin main
 New-Item -ItemType Directory -Force ..\..\plugins\drtami-core
 Copy-Item -Recurse -Force .\drtami-core\* ..\..\plugins\drtami-core\
 ```
 
-Activate **Dr. Tami – Website Manager** in Plugins if it is not already active. Go to **My Website**.
+Activate **Dr. Tami – Website Manager** in WordPress → Plugins if needed.
 
-## Owner account
+## Where to edit
 
-An administrator can create a WordPress user under **Users → Add New**, assign role **Dr. Tami – Site Owner**, and provide that user with their own login. Do not share an administrator account.
+- **My Website**: contact details, consultation fee, duration, homepage/About images, a small set of static text overrides and multilingual FAQs (including ordering).
+- **My Website → Site Design**: theme palette and fonts, live preview and reset to original design. Click **Save design** to publish.
+- **Posts → Add New**: create/edit medical articles using the standard Gutenberg editor. Set a **Featured image** for each article. The newest published article is featured on the homepage automatically, and the article list uses each post's featured image.
+- **Polylang**: associate translations of each article. Only publish translated content when reviewed.
 
-The restricted role can edit the site settings on **My Website**, upload images and manage posts. It cannot install plugins, switch themes or change WordPress settings. The site owner is redirected to **My Website** after login. Administrators retain full access.
+The theme's static pages are intentionally rendered from PHP templates. Their empty Gutenberg body is not an error; use **My Website** for their editable content. The restricted **Dr. Tami – Site Owner** account has no page editor access, avoiding this confusion. Create this account from an administrator login under **Users → Add New**.
 
-## Editable areas
+Previously saved content and FAQ entries are preserved; the former article image slots are no longer displayed or used. Text overrides for static sections no longer shown in the simplified editor remain stored and continue to render.
 
-- Contact information, clinic address, consultation fee and duration
-- Image slots on the homepage, About page and article listing
-- Page copy (Romanian, English, German), including medical service descriptions
-- FAQs: up to 30 question/answer pairs per language
-- Articles through the normal WordPress Posts editor
+## Release checklist
 
-Blank text overrides fall back to the built-in translated copy. FAQ entries are shown only when both question and answer are supplied. Saving publishes changes immediately; there is not yet a preview/draft workflow.
-
-## Before going live
-
-Test saving content in each language, FAQ add/remove, media selection, contact form delivery and user permissions locally. Review medical content and translations with the doctor. **This change has not been tested in a running WordPress instance.**
+Test in local WordPress before production: update plugin files, change a color and reset it, save contact details, reorder FAQ entries in each language, create a post with a featured image, verify article listing and homepage feature, verify Polylang behavior and the restricted owner account. Medical content must be approved by the doctor. Changes currently publish immediately; draft/preview workflows for static settings remain future work.
