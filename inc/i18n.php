@@ -142,7 +142,8 @@ function drtami_t(string $source): string {
     ];
     $lang = drtami_language();
     $index = $lang === 'en' ? 0 : ($lang === 'de' ? 1 : null);
-    return $index === null ? $source : ($translations[$source][$index] ?? $source);
+    $result = $index === null ? $source : ($translations[$source][$index] ?? $source);
+    return apply_filters('drtami_translation', $result, $source, $lang);
 }
 function drtami_translate_page_url(string $slug): string {
     $page = get_page_by_path($slug);
