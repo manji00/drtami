@@ -17,6 +17,20 @@ add_action('wp_enqueue_scripts', static function (): void {
     wp_enqueue_script('drtami-main', get_theme_file_uri('/assets/js/main.js'), [], '0.2.0', true);
 });
 
+function drtami_detail(string $key, string $fallback): string {
+    return function_exists('drtami_core_detail') ? drtami_core_detail($key, $fallback) : $fallback;
+}
+function drtami_image(string $slot): string {
+    $fallback = get_theme_file_uri('/assets/images/placeholder.webp');
+    return function_exists('drtami_core_image') ? drtami_core_image($slot, $fallback) : $fallback;
+}
+function drtami_phone_href(): string {
+    return 'tel:' . preg_replace('/[^+0-9]/', '', drtami_detail('phone', '+40 750 436 379'));
+}
+function drtami_whatsapp_href(): string {
+    $phone = preg_replace('/[^0-9]/', '', drtami_detail('phone', '+40 750 436 379'));
+    return 'https://wa.me/' . $phone;
+}
 function drtami_page_url(string $slug): string {
     $page = get_page_by_path($slug);
     return $page ? get_permalink($page) : home_url('/' . $slug . '/');
@@ -89,7 +103,7 @@ function drtami_handle_contact(): void {
     }
     set_transient($key, 1, MINUTE_IN_SECONDS);
     $body = "Nume: {$name}\nEmail: {$email}\n\nMesaj:\n{$message}";
-    $sent = wp_mail('cheschestamara@gmail.com', 'Mesaj nou de pe site-ul Dr. Tami', $body, [
+    $sent = wp_mail(drtami_detail('email', 'cheschestamara@gmail.com'), 'Mesaj nou de pe site-ul Dr. Tami', $body, [
         'Content-Type: text/plain; charset=UTF-8',
         'Reply-To: ' . $email,
     ]);
