@@ -2,6 +2,7 @@
 <main id="content">
 <section class="page-hero"><div class="container"><span class="kicker">DESPRE MINE</span><h1>Medicină cu <em>grijă și empatie.</em></h1><p>O relație bazată pe încredere, respect și siguranță pentru fiecare copil și familie.</p></div></section>
 <div class="container page-layout">
+ <div class="about-page-image image-placeholder" title="About page portrait: A professional, friendly photograph of Dr. Tamara Cheșcheș in a pediatric medical setting, photographed in soft natural light." aria-label="About page portrait placeholder"><img src="<?php echo esc_url(get_theme_file_uri('/assets/images/placeholder.webp')); ?>" alt="Temporary portrait placeholder" loading="lazy"><span class="image-placeholder-label">ABOUT PAGE · Professional portrait</span></div>
  <article class="prose">
   <h2>Cine sunt eu?</h2>
   <p>Numele meu este <strong>Tamara Cheșcheș</strong> și sunt Medic specialist Oncologie și Hematologie Pediatrică.</p>
