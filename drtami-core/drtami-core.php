@@ -101,9 +101,12 @@ add_action('admin_post_drtami_core_save', static function (): void {
     check_admin_referer('drtami_core_save');
     $raw = isset($_POST['drtami_core']) && is_array($_POST['drtami_core']) ? wp_unslash($_POST['drtami_core']) : [];
     $clean = ['texts' => [], 'details' => [], 'images' => [], 'faq' => []];
+    $existing = drtami_core_option();
+    $clean['texts'] = is_array($existing['texts'] ?? null) ? $existing['texts'] : [];
     foreach (['ro', 'en', 'de'] as $lang) {
         foreach (drtami_core_fields() as $fields) foreach ($fields as $source => $label) {
-            $value = $raw['texts'][$lang][md5($source)] ?? '';
+            if (!isset($raw['texts'][$lang]) || !array_key_exists(md5($source), (array) $raw['texts'][$lang])) continue;
+            $value = $raw['texts'][$lang][md5($source)];
             $clean['texts'][$lang][md5($source)] = is_string($value) ? sanitize_textarea_field($value) : '';
         }
     }
@@ -161,9 +164,14 @@ function drtami_core_admin(): void {
           </div>
         </td></tr><?php endforeach; ?></table>
         <h2>Static page content</h2><p>These pages have fixed layouts. Only change text when needed; articles and FAQs are managed separately. Blank fields retain the existing translations.</p>
+        <?php $editable = [
+            'home' => ['Grijă pentru cei mici.', 'Liniște pentru părinți.', 'Oncologie și Hematologie Pediatrică — consultații cu atenție, empatie și o abordare individualizată, pentru fiecare copil și familie.', 'Sunt medic specialist în Oncologie și Hematologie Pediatrică. Cred că fiecare copil merită să fie ascultat, iar fiecare părinte merită răspunsuri clare și sprijin.'],
+            'about' => ['O relație bazată pe încredere, respect și siguranță pentru fiecare copil și familie.', 'Îmi doresc să ofer fiecărui copil îngrijire medicală atentă și individualizată, într-un mediu bazat pe încredere, respect și siguranță.'],
+            'contact' => ['Pentru programări și informații, alege metoda de contact potrivită pentru tine.'],
+        ]; ?>
         <?php foreach ($groups as $group => $title): ?>
           <h3><?php echo esc_html($title); ?></h3>
-          <details style="margin:12px 0"><summary style="cursor:pointer;font-weight:600">Edit <?php echo esc_html($title); ?> text</summary><?php foreach (drtami_core_fields()[$group] as $source => $label): ?>
+          <details style="margin:12px 0"><summary style="cursor:pointer;font-weight:600">Edit <?php echo esc_html($title); ?> text</summary><?php foreach ($editable[$group] as $source): $label = drtami_core_fields()[$group][$source] ?? $source; ?>
             <div style="padding:12px 16px;margin:10px 0;background:#fff;border:1px solid #ddd;border-radius:6px">
               <strong><?php echo esc_html($label); ?></strong>
               <?php foreach (['ro' => 'Romanian', 'en' => 'English', 'de' => 'German'] as $lang => $language): ?>
