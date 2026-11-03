@@ -23,7 +23,7 @@
       <a class="nav-contact" href="<?php echo esc_url(drtami_translate_page_url('contact')); ?>"><?php echo esc_html(drtami_t("Contact")); ?> <span aria-hidden="true">↗</span></a>
       <?php if (function_exists('pll_the_languages')): ?>
       <div class="language-switcher" aria-label="Language">
-      <?php $langs = pll_the_languages(['raw' => 1, 'hide_if_empty' => 0]); if (is_array($langs)): foreach ($langs as $lang): ?>
+      <?php $langs = pll_the_languages(['raw' => 1, 'hide_if_empty' => 0]); if (is_array($langs)): foreach ($langs as $lang): if (!drtami_language_is_public((string) $lang['slug'])) continue; ?>
         <a href="<?php echo esc_url($lang['url']); ?>" lang="<?php echo esc_attr($lang['slug']); ?>" hreflang="<?php echo esc_attr($lang['slug']); ?>" <?php echo !empty($lang['current_lang']) ? 'aria-current="page"' : ''; ?>><?php echo esc_html(strtoupper($lang['slug'])); ?></a>
       <?php endforeach; endif; ?>
       </div>
