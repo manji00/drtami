@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Dr. Tami – Website Manager
  * Description: Easily manage site content, contact details, FAQs and images without code.
- * Version: 1.1.0
+ * Version: 1.2.0
  * Requires PHP: 7.4
  * Text Domain: drtami-core
  */
@@ -89,9 +89,10 @@ function drtami_core_image(string $slot, string $fallback): string {
 }
 add_action('admin_menu', static function (): void {
     add_menu_page('Dr. Tami – Website', 'My Website', 'drtami_manage_site', 'drtami-core', 'drtami_core_admin', 'dashicons-heart', 3);
+    add_submenu_page('drtami-core', 'Site Design', 'Site Design', 'drtami_manage_site', 'drtami-design', 'drtami_core_design_admin');
 });
 add_action('admin_enqueue_scripts', static function (string $hook): void {
-    if ($hook !== 'toplevel_page_drtami-core') return;
+    if ($hook !== 'toplevel_page_drtami-core' && $hook !== 'my-website_page_drtami-design' && $hook !== 'drtami-core_page_drtami-design') return;
     wp_enqueue_media();
     wp_enqueue_script('drtami-core-admin', plugin_dir_url(__FILE__) . 'admin.js', ['jquery'], '1.0.0', true);
 });
@@ -110,7 +111,7 @@ add_action('admin_post_drtami_core_save', static function (): void {
         $value = $raw['details'][$key] ?? '';
         $clean['details'][$key] = is_string($value) ? ($key === 'email' ? sanitize_email($value) : sanitize_text_field($value)) : '';
     }
-    foreach (['hero', 'about_preview', 'about_portrait', 'article_home', 'article_list'] as $key) {
+    foreach (['hero', 'about_preview', 'about_portrait'] as $key) {
         $id = absint($raw['images'][$key] ?? 0);
         $clean['images'][$key] = $id && get_post_type($id) === 'attachment' && wp_attachment_is_image($id) ? $id : 0;
     }
@@ -134,7 +135,7 @@ function drtami_core_admin(): void {
     $data = drtami_core_option();
     $groups = ['home' => 'Homepage', 'about' => 'About me', 'contact' => 'Contact'];
     $details = ['phone' => ['Phone / WhatsApp', '+40 750 436 379'], 'email' => ['Email', 'cheschestamara@gmail.com'], 'address' => ['Clinic address', 'Aleea Florin Ciungan nr. 17, București (zona Dristor)'], 'price' => ['Consultation fee / RON', '400'], 'duration' => ['Consultation duration (minutes)', '45–60']];
-    $images = ['hero' => 'Homepage – Main image', 'about_preview' => 'Homepage – Portrait', 'about_portrait' => 'About me – Portrait', 'article_home' => 'Homepage – Featured article', 'article_list' => 'Articles – Listing image'];
+    $images = ['hero' => 'Homepage – Main image', 'about_preview' => 'Homepage – Portrait', 'about_portrait' => 'About me – Portrait'];
     ?>
     <div class="wrap" style="max-width:1000px">
       <h1>Manage My Website</h1>
@@ -159,7 +160,7 @@ function drtami_core_admin(): void {
             <button type="button" class="button dt-remove">Remove image</button>
           </div>
         </td></tr><?php endforeach; ?></table>
-        <h2>Page content</h2><p>Edit content in Romanian, English and German independently. Only fill in the text you want to change.</p>
+        <h2>Static page content</h2><p>These pages have fixed layouts. Only change text when needed; articles and FAQs are managed separately. Blank fields retain the existing translations.</p>
         <?php foreach ($groups as $group => $title): ?>
           <h3><?php echo esc_html($title); ?></h3>
           <details style="margin:12px 0"><summary style="cursor:pointer;font-weight:600">Edit <?php echo esc_html($title); ?> text</summary><?php foreach (drtami_core_fields()[$group] as $source => $label): ?>
@@ -173,7 +174,7 @@ function drtami_core_admin(): void {
             </div>
           <?php endforeach; ?>
         </details><?php endforeach; ?>
-        <h2>Frequently Asked Questions</h2>
+        <h2 id="faq-editor">Frequently Asked Questions</h2>
         <p>Add up to 30 questions per language. Both question and answer are required. Empty rows are ignored.</p>
         <?php foreach (['ro' => 'Romanian', 'en' => 'English', 'de' => 'German'] as $lang => $language):
           $entries = $data['faq'][$lang] ?? [];
@@ -194,7 +195,7 @@ function drtami_core_admin(): void {
         <?php endforeach; ?>
         <?php submit_button('Save changes'); ?>
       </form>
-      <p><a href="<?php echo esc_url(admin_url('edit.php')); ?>">Manage articles</a> · <a href="<?php echo esc_url(admin_url('upload.php')); ?>">Media Library</a> · <a href="<?php echo esc_url(home_url('/')); ?>" target="_blank" rel="noopener noreferrer">View website</a></p>
+      <p><a href="<?php echo esc_url(admin_url('admin.php?page=drtami-design')); ?>">Site Design</a> · <a href="<?php echo esc_url(admin_url('edit.php')); ?>">Manage articles</a> · <a href="<?php echo esc_url(admin_url('upload.php')); ?>">Media Library</a> · <a href="<?php echo esc_url(home_url('/')); ?>" target="_blank" rel="noopener noreferrer">View website</a></p>
     </div>
     <?php
 }
@@ -220,3 +221,67 @@ add_filter('login_redirect', static function ($redirect, $requested, $user) {
     if ($user instanceof WP_User && in_array('drtami_site_owner', (array) $user->roles, true)) return admin_url('admin.php?page=drtami-core');
     return $redirect;
 }, 10, 3);
+
+/** Theme-wide visual settings. All user values are validated against safe choices. */
+function drtami_core_design_defaults(): array {
+    return [
+        'primary' => '#287A78', 'secondary' => '#A8C9BC', 'accent' => '#F2AE72',
+        'background' => '#FAF8F3', 'cards' => '#E8F3EF', 'ink' => '#273536',
+        'sans' => 'DM Sans', 'serif' => 'DM Serif Display',
+    ];
+}
+function drtami_core_design(): array {
+    $stored = get_option('drtami_core_design', []);
+    return array_merge(drtami_core_design_defaults(), is_array($stored) ? $stored : []);
+}
+add_action('admin_post_drtami_design_save', static function (): void {
+    if (!current_user_can('drtami_manage_site')) wp_die('Permission denied.');
+    check_admin_referer('drtami_design_save');
+    $defaults = drtami_core_design_defaults();
+    $raw = isset($_POST['design']) && is_array($_POST['design']) ? wp_unslash($_POST['design']) : [];
+    $safe = [];
+    foreach (['primary', 'secondary', 'accent', 'background', 'cards', 'ink'] as $key) {
+        $safe[$key] = sanitize_hex_color($raw[$key] ?? '') ?: $defaults[$key];
+    }
+    $allowed_sans = ['DM Sans', 'Inter', 'Arial'];
+    $allowed_serif = ['DM Serif Display', 'Georgia', 'Merriweather'];
+    $safe['sans'] = in_array($raw['sans'] ?? '', $allowed_sans, true) ? $raw['sans'] : $defaults['sans'];
+    $safe['serif'] = in_array($raw['serif'] ?? '', $allowed_serif, true) ? $raw['serif'] : $defaults['serif'];
+    update_option('drtami_core_design', $safe, false);
+    wp_safe_redirect(add_query_arg(['page' => 'drtami-design', 'saved' => 1], admin_url('admin.php')));
+    exit;
+});
+function drtami_core_design_admin(): void {
+    if (!current_user_can('drtami_manage_site')) return;
+    $values = drtami_core_design();
+    $labels = ['primary' => 'Primary', 'secondary' => 'Secondary', 'accent' => 'Accent / Buttons', 'background' => 'Background', 'cards' => 'Cards', 'ink' => 'Text'];
+    ?>
+    <div class="wrap" style="max-width:900px">
+    <h1>Site Design</h1><p>Change global colors and typography without editing code. Use Reset to restore the original theme.</p>
+    <?php if (isset($_GET['saved'])): ?><div class="notice notice-success"><p>Design saved.</p></div><?php endif; ?>
+    <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" id="drtami-design-form">
+      <input type="hidden" name="action" value="drtami_design_save"><?php wp_nonce_field('drtami_design_save'); ?>
+      <h2>Colors</h2>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(200px,1fr));gap:14px">
+      <?php foreach ($labels as $key => $label): ?>
+        <label style="background:#fff;padding:15px;border:1px solid #ddd;border-radius:8px">
+          <strong><?php echo esc_html($label); ?></strong><br>
+          <input type="color" data-default="<?php echo esc_attr(drtami_core_design_defaults()[$key]); ?>" name="design[<?php echo esc_attr($key); ?>]" value="<?php echo esc_attr($values[$key]); ?>">
+          <span class="dt-color-code"><?php echo esc_html($values[$key]); ?></span>
+        </label>
+      <?php endforeach; ?>
+      </div>
+      <h2>Fonts</h2>
+      <p><label>Body font <select name="design[sans]"><?php foreach (['DM Sans','Inter','Arial'] as $font): ?><option <?php selected($values['sans'], $font); ?>><?php echo esc_html($font); ?></option><?php endforeach; ?></select></label></p>
+      <p><label>Heading font <select name="design[serif]"><?php foreach (['DM Serif Display','Georgia','Merriweather'] as $font): ?><option <?php selected($values['serif'], $font); ?>><?php echo esc_html($font); ?></option><?php endforeach; ?></select></label></p>
+      <h2>Live preview</h2>
+      <div id="dt-design-preview" style="padding:30px;border-radius:16px;border:1px solid #ddd">
+        <h2 style="font-size:32px;margin:0 0 12px">Care with empathy.</h2>
+        <p>Compassionate care for children and their families.</p>
+        <span style="display:inline-block;padding:12px 18px;border-radius:25px" class="dt-design-button">Book a consultation</span>
+      </div>
+      <?php submit_button('Save design'); ?>
+      <button type="button" class="button" id="dt-design-reset">Reset to original design</button>
+    </form></div>
+    <?php
+}
