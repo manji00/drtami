@@ -83,3 +83,15 @@ function drtami_handle_contact(): void {
     ]);
     wp_safe_redirect(add_query_arg('status', $sent ? 'sent' : 'error', $back)); exit;
 }
+
+
+/** Remove only WordPress's untouched default Hello world! sample post, once. */
+add_action('init', static function (): void {
+    if (get_option('drtami_hello_cleanup_v1')) return;
+    $sample = get_page_by_path('hello-world', OBJECT, 'post');
+    if ($sample && trim((string) $sample->post_title) === 'Hello world!' &&
+        trim(wp_strip_all_tags((string) $sample->post_content)) === 'Welcome to WordPress. This is your first post. Edit or delete it, then start writing!') {
+        wp_delete_post((int) $sample->ID, true);
+    }
+    update_option('drtami_hello_cleanup_v1', '1', false);
+}, 25);
