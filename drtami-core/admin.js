@@ -38,3 +38,26 @@ jQuery(function ($) {
         $(this).closest('.dt-faq-row').remove();
     });
 });
+
+jQuery(function ($) {
+    const form = $('#drtami-design-form');
+    if (!form.length) return;
+    const preview = $('#dt-design-preview');
+    function refresh() {
+        const get = key => form.find('[name="design[' + key + ']"]').val();
+        preview.css({ backgroundColor: get('background'), color: get('ink'), fontFamily: get('sans') });
+        preview.find('h2').css({ color: get('primary'), fontFamily: get('serif') });
+        preview.find('.dt-design-button').css({ backgroundColor: get('accent'), color: get('ink') });
+        form.find('input[type="color"]').each(function () {
+            $(this).siblings('.dt-color-code').text($(this).val());
+        });
+    }
+    form.on('input change', 'input, select', refresh);
+    $('#dt-design-reset').on('click', function () {
+        form.find('input[type="color"]').each(function () { $(this).val($(this).data('default')); });
+        form.find('[name="design[sans]"]').val('DM Sans');
+        form.find('[name="design[serif]"]').val('DM Serif Display');
+        refresh();
+    });
+    refresh();
+});
