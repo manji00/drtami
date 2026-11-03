@@ -61,6 +61,14 @@ add_action('admin_post_drtami_contact', 'drtami_handle_contact');
 
 function drtami_handle_contact(): void {
     $back = drtami_page_url('contact');
+    $requested_lang = isset($_POST['drtami_lang']) ? sanitize_key(wp_unslash($_POST['drtami_lang'])) : 'ro';
+    if (in_array($requested_lang, ['ro', 'en', 'de'], true) && function_exists('pll_get_post')) {
+        $original_contact = get_page_by_path('contact', OBJECT, 'page');
+        if ($original_contact) {
+            $translated_contact = pll_get_post($original_contact->ID, $requested_lang);
+            if ($translated_contact) $back = get_permalink($translated_contact);
+        }
+    }
     if (!isset($_POST['drtami_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['drtami_nonce'])), 'drtami_contact')) {
         wp_safe_redirect(add_query_arg('status', 'invalid', $back)); exit;
     }
