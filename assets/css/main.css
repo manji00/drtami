@@ -21,3 +21,6 @@
 .article-list-card{min-height:450px}
 .about-page-image.image-placeholder{grid-column:1/-1;height:310px;border-radius:22px}
 @media(max-width:760px){.about-decoration.image-placeholder{min-height:320px}.article-visual.image-placeholder{min-height:210px}.about-page-image.image-placeholder{height:230px}}
+
+/* Polylang language navigation */
+.language-switcher{display:flex;align-items:center;gap:4px;margin-left:4px;border-left:1px solid var(--line);padding-left:15px}.language-switcher a{font-size:.72rem;font-weight:700;padding:5px 7px;border-radius:6px;color:var(--muted)}.language-switcher a[aria-current="page"]{background:var(--primary);color:#fff}.language-switcher a:hover{color:var(--primary)}.language-switcher a[aria-current="page"]:hover{color:#fff}@media(max-width:760px){.language-switcher{margin:8px 0 0;padding:15px 0 0;border-left:0;border-top:1px solid var(--line)}.language-switcher a{font-size:.9rem;padding:8px 12px}}
