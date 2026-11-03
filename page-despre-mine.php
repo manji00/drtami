@@ -18,31 +18,31 @@
   <p><?php echo esc_html(drtami_t("În cadrul specialității de Oncologie și Hematologie Pediatrică, ofer evaluare, diagnostic, monitorizare și îndrumare medicală pentru copii și adolescenți cu suspiciune sau diagnostic de afecțiuni hematologice și oncologice.")); ?></p>
   <h3><?php echo esc_html(drtami_t("Consultații de hematologie pediatrică")); ?></h3>
   <ul>
-   <li>Evaluarea și investigarea anemiei (anemie feriprivă, anemii hemolitice și alte tipuri de anemie).</li>
-   <li>Evaluarea modificărilor hemoleucogramei (hemoglobină, leucocite, trombocite).</li>
-   <li>Evaluarea trombocitopeniei și a numărului crescut de trombocite.</li>
-   <li>Investigarea tulburărilor de coagulare și a manifestărilor hemoragice.</li>
-   <li>Evaluarea vânătăilor spontane, a peteșiilor și a sângerărilor recurente.</li>
-   <li>Evaluarea adenopatiilor (ganglioni limfatici măriți).</li>
-   <li>Investigarea modificărilor persistente ale globulelor albe.</li>
-   <li>Evaluarea splenomegaliei și a hepatomegaliei.</li>
-   <li>Monitorizarea copiilor cu afecțiuni hematologice cunoscute.</li>
+   <li><?php echo esc_html(drtami_t("Evaluarea și investigarea anemiei (anemie feriprivă, anemii hemolitice și alte tipuri de anemie).")); ?></li>
+   <li><?php echo esc_html(drtami_t("Evaluarea modificărilor hemoleucogramei (hemoglobină, leucocite, trombocite).")); ?></li>
+   <li><?php echo esc_html(drtami_t("Evaluarea trombocitopeniei și a numărului crescut de trombocite.")); ?></li>
+   <li><?php echo esc_html(drtami_t("Investigarea tulburărilor de coagulare și a manifestărilor hemoragice.")); ?></li>
+   <li><?php echo esc_html(drtami_t("Evaluarea vânătăilor spontane, a peteșiilor și a sângerărilor recurente.")); ?></li>
+   <li><?php echo esc_html(drtami_t("Evaluarea adenopatiilor (ganglioni limfatici măriți).")); ?></li>
+   <li><?php echo esc_html(drtami_t("Investigarea modificărilor persistente ale globulelor albe.")); ?></li>
+   <li><?php echo esc_html(drtami_t("Evaluarea splenomegaliei și a hepatomegaliei.")); ?></li>
+   <li><?php echo esc_html(drtami_t("Monitorizarea copiilor cu afecțiuni hematologice cunoscute.")); ?></li>
   </ul>
   <h3><?php echo esc_html(drtami_t("Consultații de oncologie pediatrică")); ?></h3>
   <ul>
-   <li>Evaluarea copiilor cu semne și simptome sugestive pentru o afecțiune oncologică.</li>
-   <li>Evaluarea adenopatiilor persistente sau cu aspect clinic suspect.</li>
-   <li>Investigarea febrei prelungite și a simptomelor generale fără o cauză identificată.</li>
-   <li>Evaluarea modificărilor biologice care pot ridica suspiciunea unei afecțiuni oncologice.</li>
-   <li>Evaluarea și îndrumarea copiilor după finalizarea tratamentului oncologic.</li>
+   <li><?php echo esc_html(drtami_t("Evaluarea copiilor cu semne și simptome sugestive pentru o afecțiune oncologică.")); ?></li>
+   <li><?php echo esc_html(drtami_t("Evaluarea adenopatiilor persistente sau cu aspect clinic suspect.")); ?></li>
+   <li><?php echo esc_html(drtami_t("Investigarea febrei prelungite și a simptomelor generale fără o cauză identificată.")); ?></li>
+   <li><?php echo esc_html(drtami_t("Evaluarea modificărilor biologice care pot ridica suspiciunea unei afecțiuni oncologice.")); ?></li>
+   <li><?php echo esc_html(drtami_t("Evaluarea și îndrumarea copiilor după finalizarea tratamentului oncologic.")); ?></li>
   </ul>
   <h3><?php echo esc_html(drtami_t("Alte servicii medicale")); ?></h3>
   <ul>
-   <li>Interpretarea hemoleucogramei și a analizelor de laborator.</li>
-   <li>Recomandarea investigațiilor suplimentare necesare pentru stabilirea diagnosticului.</li>
-   <li>A doua opinie medicală în cazul afecțiunilor hematologice și oncologice pediatrice.</li>
-   <li>Consilierea și informarea părinților cu privire la diagnostic, investigații și opțiunile terapeutice.</li>
-   <li>Îndrumarea către alte specialități medicale atunci când situația clinică o impune.</li>
+   <li><?php echo esc_html(drtami_t("Interpretarea hemoleucogramei și a analizelor de laborator.")); ?></li>
+   <li><?php echo esc_html(drtami_t("Recomandarea investigațiilor suplimentare necesare pentru stabilirea diagnosticului.")); ?></li>
+   <li><?php echo esc_html(drtami_t("A doua opinie medicală în cazul afecțiunilor hematologice și oncologice pediatrice.")); ?></li>
+   <li><?php echo esc_html(drtami_t("Consilierea și informarea părinților cu privire la diagnostic, investigații și opțiunile terapeutice.")); ?></li>
+   <li><?php echo esc_html(drtami_t("Îndrumarea către alte specialități medicale atunci când situația clinică o impune.")); ?></li>
   </ul>
  </article>
  <aside class="sidebar-card"><span class="sidebar-symbol">♡</span><h3><?php echo esc_html(drtami_t("Ai întrebări?")); ?></h3><p><?php echo esc_html(drtami_t("Sunt aici pentru a te ajuta să găsești răspunsuri și îndrumare.")); ?></p><a class="button button-primary" href="<?php echo esc_url(drtami_translate_page_url('contact')); ?>"><?php echo esc_html(drtami_t("Contactează-mă")); ?> ↗</a></aside>
