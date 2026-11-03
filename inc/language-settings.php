@@ -38,7 +38,7 @@ function drtami_render_language_settings(): void {
         </table>
         <?php submit_button('Sprachen speichern'); ?>
       </form>
-      <p><strong>Hinweis:</strong> Deaktivierte Sprachseiten leiten Besucher auf die entsprechende rumänische Seite um. Suchmaschinen erhalten eine permanente Weiterleitung (301). Nach einer späteren Reaktivierung sind die ursprünglichen Inhalte wieder verfügbar.</p>
+      <p><strong>Hinweis:</strong> Deaktivierte Sprachseiten leiten Besucher auf die entsprechende rumänische Seite um. Suchmaschinen erhalten eine temporäre Weiterleitung (302). Nach einer späteren Reaktivierung sind die ursprünglichen Inhalte wieder verfügbar.</p>
     </div>
     <?php
 }
@@ -52,7 +52,7 @@ add_filter('pll_the_languages', static function ($output, $args) {
 }, 10, 2);
 /** Prevent indexing or visiting disabled language URLs. */
 add_action('template_redirect', static function (): void {
-    if (is_admin() || wp_doing_ajax() || is_preview() || current_user_can('manage_options')) return;
+    if (is_admin() || wp_doing_ajax() || is_preview()) return;
     if (!function_exists('pll_current_language')) return;
     $lang = pll_current_language('slug');
     if (!$lang || drtami_language_is_public($lang)) return;
@@ -68,6 +68,6 @@ add_action('template_redirect', static function (): void {
             if (!is_wp_error($url)) $target = $url;
         }
     }
-    wp_safe_redirect($target, 301);
+    wp_safe_redirect($target, 302);
     exit;
 }, 1);
