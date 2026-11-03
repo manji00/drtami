@@ -131,6 +131,9 @@ function drtami_t(string $source): string {
         "Ai întrebări?" => ["Have questions?", "Haben Sie Fragen?"],
         "Sunt aici pentru a te ajuta să găsești răspunsuri și îndrumare." => ["I'm here to help you find answers and guidance.", "Ich helfe Ihnen gerne, Antworten und Orientierung zu finden."],
         "Contactează-mă" => ["Get in touch", "Kontakt aufnehmen"],
+        "Aici vor apărea în curând răspunsuri la întrebările frecvente." => ["Answers to frequently asked questions will appear here soon.", "Hier finden Sie bald Antworten auf häufig gestellte Fragen."],
+        "Pregătim această secțiune." => ["This section is coming soon.", "Dieser Bereich entsteht gerade."],
+        "Între timp, mă poți contacta direct pentru informații." => ["In the meantime, feel free to contact me for information.", "In der Zwischenzeit können Sie mich bei Fragen direkt kontaktieren."],
     ];
     $lang = drtami_language();
     $index = $lang === 'en' ? 0 : ($lang === 'de' ? 1 : null);
