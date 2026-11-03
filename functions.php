@@ -76,7 +76,7 @@ add_action('init', static function (): void {
             'post_status' => 'publish',
             'post_title' => 'Când este recomandat un consult la hematologul pediatru?',
             'post_name' => 'cand-este-recomandat-un-consult-la-hematologul-pediatru',
-            'post_content' => '',
+            'post_content' => drtami_initial_article_translation('ro'),
         ]);
     }
     update_option('drtami_seed_version', '1', false);
@@ -144,3 +144,33 @@ add_filter('template_include', static function (string $template): string {
     $candidate = get_theme_file_path('/page-' . $slug . '.php');
     return file_exists($candidate) ? $candidate : $template;
 }, 50);
+
+/**
+ * One-time migration of the original sample article into Gutenberg.
+ * Never overwrite existing content, including user edits or translations.
+ * Store a post meta marker so a deliberately emptied post is not repopulated.
+ */
+add_action('init', static function (): void {
+    if (get_option('drtami_article_content_migrated_v1') === '1') return;
+    $slugs = [
+        'ro' => 'cand-este-recomandat-un-consult-la-hematologul-pediatru',
+        'en' => 'when-to-see-a-pediatric-hematologist',
+        'de' => 'wann-zum-kinderhaematologen',
+    ];
+    foreach ($slugs as $lang => $slug) {
+        $post = get_page_by_path($slug, OBJECT, 'post');
+        if (!$post) continue;
+        if (get_post_meta($post->ID, '_drtami_initial_article_migrated', true)) continue;
+        if (trim((string) $post->post_content) !== '') continue;
+        $content = drtami_initial_article_translation($lang);
+        if ($content === '') continue;
+        $updated = wp_update_post([
+            'ID' => (int) $post->ID,
+            'post_content' => $content,
+        ], true);
+        if (!is_wp_error($updated) && $updated) {
+            update_post_meta($post->ID, '_drtami_initial_article_migrated', '1');
+        }
+    }
+    update_option('drtami_article_content_migrated_v1', '1', false);
+}, 60);
