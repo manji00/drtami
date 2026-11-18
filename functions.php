@@ -13,7 +13,7 @@ add_action('after_setup_theme', static function (): void {
 
 add_action('wp_enqueue_scripts', static function (): void {
     wp_enqueue_style('drtami-fonts', 'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap', [], null);
-    wp_enqueue_style('drtami-main', get_theme_file_uri('/assets/css/main.css'), ['drtami-fonts'], '0.2.0');
+    wp_enqueue_style('drtami-main', get_theme_file_uri('/assets/css/main.css'), ['drtami-fonts'], '0.3.0');
     if (function_exists('drtami_core_design')) {
         $design = drtami_core_design();
         $vars = ['primary' => '--primary', 'secondary' => '--secondary', 'accent' => '--accent', 'background' => '--bg', 'cards' => '--cards', 'ink' => '--ink'];

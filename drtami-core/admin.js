@@ -48,6 +48,7 @@ jQuery(function ($) {
     function refresh() {
         const get = key => form.find('[name="design[' + key + ']"]').val();
         preview.css({ backgroundColor: get('background'), color: get('ink'), fontFamily: get('sans') });
+        preview.css({ borderColor: get('secondary'), boxShadow: 'inset 6px 0 0 ' + get('secondary') });
         preview.find('h2').css({ color: get('primary'), fontFamily: get('serif') });
         preview.find('.dt-design-button').css({ backgroundColor: get('accent'), color: get('ink') });
         form.find('input[type="color"]').each(function () {

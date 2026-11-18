@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Dr. Tami – Website Manager
  * Description: Easily manage site content, contact details, FAQs and images without code.
- * Version: 1.2.0
+ * Version: 1.2.1
  * Requires PHP: 7.4
  * Text Domain: drtami-core
  */
@@ -94,7 +94,7 @@ add_action('admin_menu', static function (): void {
 add_action('admin_enqueue_scripts', static function (string $hook): void {
     if ($hook !== 'toplevel_page_drtami-core' && $hook !== 'my-website_page_drtami-design' && $hook !== 'drtami-core_page_drtami-design') return;
     wp_enqueue_media();
-    wp_enqueue_script('drtami-core-admin', plugin_dir_url(__FILE__) . 'admin.js', ['jquery'], '1.2.0', true);
+    wp_enqueue_script('drtami-core-admin', plugin_dir_url(__FILE__) . 'admin.js', ['jquery'], '1.2.1', true);
 });
 add_action('admin_post_drtami_core_save', static function (): void {
     if (!current_user_can('drtami_manage_site')) wp_die('Permission denied.');
