@@ -44,7 +44,9 @@ $reviews = new WP_Query([
             <?php for ($rating = 1; $rating <= 5; $rating++): ?>
               <label>
                 <input type="radio" name="rating" value="<?php echo esc_attr($rating); ?>" aria-label="<?php echo esc_attr($rating . ' / 5'); ?>" required>
-                <span aria-hidden="true">★</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M12 1.5l3.1 6.9 7.5.8-5.6 5 1.5 7.4-6.5-3.8-6.5 3.8L7 14.2l-5.6-5 7.5-.8z"/>
+                </svg>
               </label>
             <?php endfor; ?>
           </div>

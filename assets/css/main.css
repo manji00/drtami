@@ -63,19 +63,19 @@ em, i, cite, dfn, var, address { font-style: normal; }
     opacity: 0;
     cursor: pointer;
 }
-.review-star-options label span {
-    color: #fff;
-    -webkit-text-stroke: 1px #8a5a00;
-    font-size: 29px;
-    line-height: 1;
+.review-star-options svg {
+    width: 38px;
+    height: 38px;
+    fill: #fff;
+    stroke: #000;
+    stroke-width: .55;
+    stroke-linejoin: round;
     pointer-events: none;
 }
-.review-star-options label:has(input:checked) span,
-.review-star-options label:has(~ label input:checked) span { color: #e8a323; }
+.review-star-options label:where(:has(input:checked), :has(~ label input:checked)) svg { fill: #e8a323; }
 .review-star-options label:has(input:focus-visible) { outline: 2px solid var(--primary); outline-offset: -2px; }
 @media (hover: hover) {
-    .review-star-options:has(label:hover) label span { color: #fff; }
-    .review-star-options label:hover span,
-    .review-star-options label:has(~ label:hover) span { color: #e8a323; }
+    .review-star-options:where(:has(label:hover)) label svg { fill: #fff; }
+    .review-star-options label:where(:hover, :has(~ label:hover)) svg { fill: #e8a323; }
 }
 .review-form .button { margin-top: 20px; }
