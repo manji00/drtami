@@ -41,6 +41,41 @@ em, i, cite, dfn, var, address { font-style: normal; }
 .review-card { padding: 24px; border: 1px solid var(--line); border-radius: 18px; background: #fff; }
 .review-card p { margin: 8px 0 0; overflow-wrap: anywhere; }
 .review-rating { color: var(--primary); }
-.form-card select { width: 100%; border: 1px solid #cbdcd4; border-radius: 10px; padding: 13px 15px; background: #fafcf9; color: var(--ink); font: inherit; }
-.form-card select:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+.site-header .brand strong { text-transform: uppercase; }
+.review-stars { margin: 15px 0 0; padding: 0; border: 0; min-inline-size: 0; }
+.review-stars legend { padding: 0; font-size: .84rem; font-weight: 700; }
+.review-star-options { display: flex; flex-wrap: wrap; }
+.review-star-options label:not(.checkbox-label) {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    margin: 0;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.form-card .review-star-options input[type=radio] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+.review-star-options label span {
+    color: #fff;
+    -webkit-text-stroke: 1px #8a5a00;
+    font-size: 29px;
+    line-height: 1;
+    pointer-events: none;
+}
+.review-star-options label:has(input:checked) span,
+.review-star-options label:has(~ label input:checked) span { color: #e8a323; }
+.review-star-options label:has(input:focus-visible) { outline: 2px solid var(--primary); outline-offset: -2px; }
+@media (hover: hover) {
+    .review-star-options:has(label:hover) label span { color: #fff; }
+    .review-star-options label:hover span,
+    .review-star-options label:has(~ label:hover) span { color: #e8a323; }
+}
 .review-form .button { margin-top: 20px; }

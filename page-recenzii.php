@@ -38,13 +38,17 @@ $reviews = new WP_Query([
         <input type="hidden" name="review_page" value="<?php echo esc_attr($page_id); ?>">
         <?php wp_nonce_field('drtami_review_' . $page_id, 'drtami_nonce', false); ?>
         <div class="honeypot" aria-hidden="true"><label>Website <input name="website" tabindex="-1" autocomplete="off"></label></div>
-        <label for="review-rating"><?php echo esc_html(drtami_t('Evaluare (1–5 stele)')); ?></label>
-        <select id="review-rating" name="rating" required>
-          <option value=""><?php echo esc_html(drtami_t('Alege o evaluare')); ?></option>
-          <?php for ($rating = 5; $rating >= 1; $rating--): ?>
-            <option value="<?php echo esc_attr($rating); ?>"><?php echo esc_html($rating . ' / 5'); ?></option>
-          <?php endfor; ?>
-        </select>
+        <fieldset class="review-stars">
+          <legend><?php echo esc_html(drtami_t('Evaluare (1–5 stele)')); ?></legend>
+          <div class="review-star-options">
+            <?php for ($rating = 1; $rating <= 5; $rating++): ?>
+              <label>
+                <input type="radio" name="rating" value="<?php echo esc_attr($rating); ?>" aria-label="<?php echo esc_attr($rating . ' / 5'); ?>" required>
+                <span aria-hidden="true">★</span>
+              </label>
+            <?php endfor; ?>
+          </div>
+        </fieldset>
         <label for="review-message"><?php echo esc_html(drtami_t('Comentariu (opțional)')); ?></label>
         <textarea id="review-message" name="message" rows="5" maxlength="1500"></textarea>
         <button class="button button-primary" type="submit"><?php echo esc_html(drtami_t('Trimite recenzia')); ?></button>

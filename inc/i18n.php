@@ -23,7 +23,6 @@ function drtami_t(string $source): string {
         "Așteaptă un minut înainte de a trimite o altă recenzie." => ["Please wait a minute before submitting another review.", "Bitte warten Sie eine Minute, bevor Sie eine weitere Bewertung abgeben."],
         "Recenzia nu a putut fi trimisă. Încearcă din nou." => ["The review could not be submitted. Please try again.", "Die Bewertung konnte nicht gesendet werden. Bitte versuchen Sie es erneut."],
         "Evaluare (1–5 stele)" => ["Rating (1–5 stars)", "Bewertung (1–5 Sterne)"],
-        "Alege o evaluare" => ["Choose a rating", "Bewertung auswählen"],
         "Comentariu (opțional)" => ["Comment (optional)", "Kommentar (optional)"],
         "Trimite recenzia" => ["Submit review", "Bewertung senden"],
         "Recenzii publicate" => ["Published reviews", "Veröffentlichte Bewertungen"],
