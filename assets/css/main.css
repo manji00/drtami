@@ -70,6 +70,7 @@ em, i, cite, dfn, var, address { font-style: normal; }
     stroke: #000;
     stroke-width: 2.35;
     stroke-linejoin: round;
+    paint-order: stroke fill;
     pointer-events: none;
 }
 .review-star-inner-outline { fill: none; stroke: #fff; stroke-width: 1.05; }
