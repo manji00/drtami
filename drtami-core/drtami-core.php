@@ -94,7 +94,7 @@ add_action('admin_menu', static function (): void {
 add_action('admin_enqueue_scripts', static function (string $hook): void {
     if ($hook !== 'toplevel_page_drtami-core' && $hook !== 'my-website_page_drtami-design' && $hook !== 'drtami-core_page_drtami-design') return;
     wp_enqueue_media();
-    wp_enqueue_script('drtami-core-admin', plugin_dir_url(__FILE__) . 'admin.js', ['jquery'], '1.2.1', true);
+    wp_enqueue_script('drtami-core-admin', plugin_dir_url(__FILE__) . 'admin.js', ['jquery'], '1.2.2', true);
 });
 add_action('admin_post_drtami_core_save', static function (): void {
     if (!current_user_can('drtami_manage_site')) wp_die('Permission denied.');
@@ -235,12 +235,14 @@ function drtami_core_design_defaults(): array {
     return [
         'primary' => '#287A78', 'secondary' => '#A8C9BC', 'accent' => '#F2AE72',
         'background' => '#FAF8F3', 'cards' => '#E8F3EF', 'ink' => '#273536',
-        'sans' => 'DM Sans', 'serif' => 'DM Serif Display',
+        'sans' => 'DM Sans', 'serif' => 'Inter',
     ];
 }
 function drtami_core_design(): array {
     $stored = get_option('drtami_core_design', []);
-    return array_merge(drtami_core_design_defaults(), is_array($stored) ? $stored : []);
+    $design = array_merge(drtami_core_design_defaults(), is_array($stored) ? $stored : []);
+    if ($design['serif'] === 'DM Serif Display') $design['serif'] = 'Inter';
+    return $design;
 }
 add_action('admin_post_drtami_design_save', static function (): void {
     if (!current_user_can('drtami_manage_site')) wp_die('Permission denied.');
@@ -252,7 +254,7 @@ add_action('admin_post_drtami_design_save', static function (): void {
         $safe[$key] = sanitize_hex_color($raw[$key] ?? '') ?: $defaults[$key];
     }
     $allowed_sans = ['DM Sans', 'Inter', 'Arial'];
-    $allowed_serif = ['DM Serif Display', 'Georgia', 'Merriweather'];
+    $allowed_serif = ['Inter', 'Georgia', 'Merriweather'];
     $safe['sans'] = in_array($raw['sans'] ?? '', $allowed_sans, true) ? $raw['sans'] : $defaults['sans'];
     $safe['serif'] = in_array($raw['serif'] ?? '', $allowed_serif, true) ? $raw['serif'] : $defaults['serif'];
     update_option('drtami_core_design', $safe, false);
@@ -281,7 +283,7 @@ function drtami_core_design_admin(): void {
       </div>
       <h2>Fonts</h2>
       <p><label>Body font <select name="design[sans]"><?php foreach (['DM Sans','Inter','Arial'] as $font): ?><option <?php selected($values['sans'], $font); ?>><?php echo esc_html($font); ?></option><?php endforeach; ?></select></label></p>
-      <p><label>Heading font <select name="design[serif]"><?php foreach (['DM Serif Display','Georgia','Merriweather'] as $font): ?><option <?php selected($values['serif'], $font); ?>><?php echo esc_html($font); ?></option><?php endforeach; ?></select></label></p>
+      <p><label>Heading font <select name="design[serif]"><?php foreach (['Inter','Georgia','Merriweather'] as $font): ?><option <?php selected($values['serif'], $font); ?>><?php echo esc_html($font); ?></option><?php endforeach; ?></select></label></p>
       <h2>Live preview</h2>
       <div id="dt-design-preview" style="padding:30px;border-radius:16px;border:1px solid #ddd">
         <h2 style="font-size:32px;margin:0 0 12px">Care with empathy.</h2>

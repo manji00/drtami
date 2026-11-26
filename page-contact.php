@@ -1,13 +1,12 @@
 <?php get_header(); ?>
 <main id="content">
-<section class="page-hero"><div class="container"><span class="kicker"><?php echo esc_html(drtami_t("CONTACT & PROGRAMĂRI")); ?></span><h1><?php echo esc_html(drtami_t("Hai să ")); ?><em><?php echo esc_html(drtami_t("vorbim.")); ?></em></h1><p><?php echo esc_html(drtami_t("Pentru programări și informații, alege metoda de contact potrivită pentru tine.")); ?></p></div></section>
+<section class="page-hero"><div class="container"><span class="kicker"><?php echo esc_html(drtami_t("CONTACT & PROGRAMĂRI")); ?></span><h1><?php echo esc_html(drtami_t("Cum pot face o programare?")); ?></h1><p><?php echo esc_html(drtami_t("Pentru programări și informații, alege metoda de contact potrivită pentru tine.")); ?></p></div></section>
 <section class="section container contact-grid">
  <div class="contact-details">
-  <span class="kicker"><?php echo esc_html(drtami_t("DATE DE CONTACT")); ?></span><h2><?php echo esc_html(drtami_t("Sunt aici pentru ")); ?><em><?php echo esc_html(drtami_t("voi.")); ?></em></h2>
+  <span class="kicker"><?php echo esc_html(drtami_t("DATE DE CONTACT")); ?></span><h2><?php echo esc_html(drtami_t("Alege modalitatea de comunicare")); ?></h2>
   <div class="contact-item"><span>☎</span><div><strong>Telefon / WhatsApp</strong><a href="<?php echo esc_url(drtami_phone_href()); ?>"><?php echo esc_html(drtami_detail("phone", "+40 750 436 379")); ?></a><a href="<?php echo esc_url(drtami_whatsapp_href()); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html(drtami_t("Scrie pe WhatsApp")); ?> ↗</a></div></div>
   <div class="contact-item"><span>✉</span><div><strong>E-mail</strong><a href="<?php echo esc_url("mailto:" . drtami_detail("email", "cheschestamara@gmail.com")); ?>"><?php echo esc_html(drtami_detail("email", "cheschestamara@gmail.com")); ?></a></div></div>
   <div class="contact-item"><span>⌖</span><div><strong><?php echo esc_html(drtami_t("Adresa clinicii")); ?></strong><p><?php echo esc_html(drtami_detail("address", "Aleea Florin Ciungan nr. 17, București (zona Dristor)")); ?></p></div></div>
-  <div class="appointment-info"><h3><?php echo esc_html(drtami_t("Informații utile pentru consultație")); ?></h3><p><strong><?php echo esc_html(drtami_t("Tarif:")); ?></strong> <?php echo esc_html(drtami_detail("price", "400")); ?> RON (<?php echo esc_html(drtami_t("fără decontare CASMB")); ?>)</p><p><strong><?php echo esc_html(drtami_t("Durată:")); ?></strong> <?php echo esc_html(drtami_detail("duration", "45–60")); ?> minute</p><p><strong><?php echo esc_html(drtami_t("De adus:")); ?></strong> <?php echo esc_html(drtami_t("copilul (prezență obligatorie) și documentele medicale ale acestuia.")); ?></p></div>
  </div>
  <div class="form-card"><h2><?php echo esc_html(drtami_t("Trimite un mesaj")); ?></h2><p><?php echo esc_html(drtami_t("Completează formularul, iar mesajul va fi transmis pe e-mail.")); ?></p>
  <?php $status = isset($_GET['status']) ? sanitize_key(wp_unslash($_GET['status'])) : ''; ?>

@@ -4,6 +4,7 @@ require_once get_theme_file_path('/inc/i18n.php');
 require_once get_theme_file_path('/inc/language-settings.php');
 require_once get_theme_file_path('/inc/article-translations.php');
 require_once get_theme_file_path('/inc/polylang-pages.php');
+require_once get_theme_file_path('/inc/reviews.php');
 
 add_action('after_setup_theme', static function (): void {
     add_theme_support('title-tag');
@@ -12,8 +13,8 @@ add_action('after_setup_theme', static function (): void {
 });
 
 add_action('wp_enqueue_scripts', static function (): void {
-    wp_enqueue_style('drtami-fonts', 'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap', [], null);
-    wp_enqueue_style('drtami-main', get_theme_file_uri('/assets/css/main.css'), ['drtami-fonts'], '0.3.0');
+    wp_enqueue_style('drtami-fonts', 'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@350;400;500;600;700&family=Merriweather:wght@400;700&display=swap', [], null);
+    wp_enqueue_style('drtami-main', get_theme_file_uri('/assets/css/main.css'), ['drtami-fonts'], '0.4.0');
     if (function_exists('drtami_core_design')) {
         $design = drtami_core_design();
         $vars = ['primary' => '--primary', 'secondary' => '--secondary', 'accent' => '--accent', 'background' => '--bg', 'cards' => '--cards', 'ink' => '--ink'];
@@ -22,8 +23,8 @@ add_action('wp_enqueue_scripts', static function (): void {
             $color = sanitize_hex_color($design[$key] ?? '') ?: '#287A78';
             $css .= $variable . ':' . $color . ';';
         }
-        $fonts = ['DM Sans' => '"DM Sans",Arial,sans-serif', 'Inter' => '"Inter",Arial,sans-serif', 'Arial' => 'Arial,sans-serif', 'DM Serif Display' => '"DM Serif Display",Georgia,serif', 'Georgia' => 'Georgia,serif', 'Merriweather' => '"Merriweather",Georgia,serif'];
-        $css .= '--sans:' . ($fonts[$design['sans']] ?? $fonts['DM Sans']) . ';--serif:' . ($fonts[$design['serif']] ?? $fonts['DM Serif Display']) . ';}';
+        $fonts = ['DM Sans' => '"DM Sans",Arial,sans-serif', 'Inter' => '"Inter",Arial,sans-serif', 'Arial' => 'Arial,sans-serif', 'Georgia' => 'Georgia,serif', 'Merriweather' => '"Merriweather",Georgia,serif'];
+        $css .= '--sans:' . ($fonts[$design['sans']] ?? $fonts['DM Sans']) . ';--serif:' . ($fonts[$design['serif'] === 'DM Serif Display' ? 'Inter' : $design['serif']] ?? $fonts['Inter']) . ';}';
         wp_add_inline_style('drtami-main', $css);
     }
     wp_enqueue_script('drtami-main', get_theme_file_uri('/assets/js/main.js'), [], '0.2.0', true);
@@ -140,7 +141,7 @@ add_filter('template_include', static function (string $template): string {
     $romanian = pll_get_post(get_queried_object_id(), 'ro');
     if (!$romanian) return $template;
     $slug = get_post_field('post_name', $romanian);
-    if (!in_array($slug, ['despre-mine', 'contact', 'intrebari-frecvente', 'articole'], true)) return $template;
+    if (!in_array($slug, ['despre-mine', 'contact', 'intrebari-frecvente', 'articole', 'recenzii'], true)) return $template;
     $candidate = get_theme_file_path('/page-' . $slug . '.php');
     return file_exists($candidate) ? $candidate : $template;
 }, 50);

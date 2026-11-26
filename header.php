@@ -20,6 +20,7 @@
       <a href="<?php echo esc_url(drtami_translate_page_url('despre-mine')); ?>"><?php echo esc_html(drtami_t("Despre mine")); ?></a>
       <a href="<?php echo esc_url(drtami_translate_page_url('articole')); ?>"><?php echo esc_html(drtami_t("Articole")); ?></a>
       <a href="<?php echo esc_url(drtami_translate_page_url('intrebari-frecvente')); ?>"><?php echo esc_html(drtami_t("Întrebări frecvente")); ?></a>
+      <a href="<?php echo esc_url(drtami_translate_page_url('recenzii')); ?>"><?php echo esc_html(drtami_t("Recenzii")); ?></a>
       <a class="nav-contact" href="<?php echo esc_url(drtami_translate_page_url('contact')); ?>"><?php echo esc_html(drtami_t("Contact")); ?> <span aria-hidden="true">↗</span></a>
       <?php if (function_exists('pll_the_languages')): ?>
       <div class="language-switcher" aria-label="Language">

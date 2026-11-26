@@ -59,7 +59,7 @@ jQuery(function ($) {
     $('#dt-design-reset').on('click', function () {
         form.find('input[type="color"]').each(function () { $(this).val($(this).data('default')); });
         form.find('[name="design[sans]"]').val('DM Sans');
-        form.find('[name="design[serif]"]').val('DM Serif Display');
+        form.find('[name="design[serif]"]').val('Inter');
         refresh();
     });
     refresh();
