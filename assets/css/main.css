@@ -40,7 +40,9 @@ em, i, cite, dfn, var, address { font-style: normal; }
 .review-list { display: grid; gap: 16px; }
 .review-card { padding: 24px; border: 1px solid var(--line); border-radius: 18px; background: #fff; }
 .review-card p { margin: 8px 0 0; overflow-wrap: anywhere; }
-.review-rating { color: var(--primary); }
+.review-rating { display: flex; gap: 4px; }
+.review-rating .review-star-icon { display: block; width: 24px; height: 24px; }
+.review-rating .is-filled .review-star-icon { fill: #e8a323; }
 .site-header .brand strong { text-transform: uppercase; }
 .review-stars { margin: 15px 0 0; padding: 0; border: 0; min-inline-size: 0; }
 .review-stars legend { padding: 0; font-size: .84rem; font-weight: 700; }
@@ -63,7 +65,7 @@ em, i, cite, dfn, var, address { font-style: normal; }
     opacity: 0;
     cursor: pointer;
 }
-.review-star-options svg {
+.review-star-icon {
     width: 38px;
     height: 38px;
     fill: #fff;

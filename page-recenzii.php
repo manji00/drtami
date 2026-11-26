@@ -44,10 +44,7 @@ $reviews = new WP_Query([
             <?php for ($rating = 1; $rating <= 5; $rating++): ?>
               <label>
                 <input type="radio" name="rating" value="<?php echo esc_attr($rating); ?>" aria-label="<?php echo esc_attr($rating . ' / 5'); ?>" required>
-                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                  <path id="review-star-shape-<?php echo esc_attr($rating); ?>" d="M10.9 2.7Q12 .95 13.1 2.7L15.6 8.4l5.9.6q1.65.2.5 1.6l-4.5 4 1.3 5.7q.4 1.75-1.25 1.15L12 18.1l-5.55 3.35q-1.65.6-1.25-1.15l1.3-5.7-4.5-4q-1.15-1.4.5-1.6l5.9-.6z"/>
-                  <use class="review-star-inner-outline" href="#review-star-shape-<?php echo esc_attr($rating); ?>"/>
-                </svg>
+                <?php get_template_part('template-parts/icon-review-star'); ?>
               </label>
             <?php endfor; ?>
           </div>
@@ -66,7 +63,13 @@ $reviews = new WP_Query([
           ?>
             <article class="review-card">
               <?php if ($rating >= 1 && $rating <= 5): ?>
-                <strong class="review-rating"><span aria-hidden="true">★</span> <?php echo esc_html($rating . ' / 5'); ?></strong>
+                <div class="review-rating" role="img" aria-label="<?php echo esc_attr($rating . ' / 5'); ?>">
+                  <?php for ($star = 1; $star <= 5; $star++): ?>
+                    <span<?php echo $star <= $rating ? ' class="is-filled"' : ''; ?>>
+                      <?php get_template_part('template-parts/icon-review-star'); ?>
+                    </span>
+                  <?php endfor; ?>
+                </div>
               <?php endif; ?>
               <?php if ($review->post_content !== ''): ?>
                 <p><?php echo nl2br(esc_html($review->post_content)); ?></p>
