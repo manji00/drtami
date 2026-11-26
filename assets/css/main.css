@@ -68,10 +68,11 @@ em, i, cite, dfn, var, address { font-style: normal; }
     height: 38px;
     fill: #fff;
     stroke: #000;
-    stroke-width: .55;
+    stroke-width: 2.35;
     stroke-linejoin: round;
     pointer-events: none;
 }
+.review-star-inner-outline { fill: none; stroke: #fff; stroke-width: 1.05; }
 .review-star-options label:where(:has(input:checked), :has(~ label input:checked)) svg { fill: #e8a323; }
 .review-star-options label:has(input:focus-visible) { outline: 2px solid var(--primary); outline-offset: -2px; }
 @media (hover: hover) {

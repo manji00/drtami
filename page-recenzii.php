@@ -45,7 +45,8 @@ $reviews = new WP_Query([
               <label>
                 <input type="radio" name="rating" value="<?php echo esc_attr($rating); ?>" aria-label="<?php echo esc_attr($rating . ' / 5'); ?>" required>
                 <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                  <path d="M12 1.5l3.1 6.9 7.5.8-5.6 5 1.5 7.4-6.5-3.8-6.5 3.8L7 14.2l-5.6-5 7.5-.8z"/>
+                  <path id="review-star-shape-<?php echo esc_attr($rating); ?>" d="M10.9 2.7Q12 .95 13.1 2.7L15.6 8.4l5.9.6q1.65.2.5 1.6l-4.5 4 1.3 5.7q.4 1.75-1.25 1.15L12 18.1l-5.55 3.35q-1.65.6-1.25-1.15l1.3-5.7-4.5-4q-1.15-1.4.5-1.6l5.9-.6z"/>
+                  <use class="review-star-inner-outline" href="#review-star-shape-<?php echo esc_attr($rating); ?>"/>
                 </svg>
               </label>
             <?php endfor; ?>
